@@ -1,0 +1,120 @@
+vite-error-overlay {
+	z-index: 9999;
+}
+
+.scrolltest {
+	width: 500px;
+	height: 500px;
+	display: inline-flex;
+	border: 1px dotted #d3d;
+	box-sizing: border-box;
+	background-color: rgba(255, 255, 255, 0.3);
+	backdrop-filter: blur(10px);
+	color: #000;
+	font-weight: 700;
+	flex: 0 0 auto;
+	&::before {
+		content: "TEST SCROLL";
+	}
+}
+
+h1.testh1 {
+	font-size: 30px;
+	font-weight: 700;
+	color: blue;
+}
+h2.testh2 {
+	font-size: 24px;
+	font-weight: 500;
+	color: blue;
+}
+div.testsplit {
+	display: flex;
+	height: var(--page-height);
+	box-sizing: border-box;
+	> div {
+		flex: 1;
+		box-sizing: border-box;
+		display: flex;
+		border: 1px solid blue;
+		flex-direction: column;
+		overflow: auto;
+		height: 100%;
+	}
+	.testdisplay {
+	}
+}
+
+input.testinput {
+	border: 1px solid blue;
+	color: blue;
+}
+div.testresize {
+	resize: both;
+	overflow: auto;
+	border: 1px dashed blue;
+}
+
+div.testdiv {
+	border: 1px solid blue;
+	padding: 10px;
+	margin: 10px;
+	box-sizing: border-box;
+	display: flex;
+	align-items: flex-start;
+	flex-direction: column;
+	width: auto;
+	box-sizing: border-box;
+	gap: 5px;
+
+	&.-disabled {
+		opacity: 0.3;
+		background-color: rgba(0, 0, 0, 0.3);
+		pointer-events: none;
+	}
+}
+
+select.testselect {
+	border: 1px solid blue;
+	color: blue;
+}
+
+button.testbtn {
+	padding: 5px 9px;
+	color: #fff;
+	border-radius: 3px;
+	background-color: rgb(98, 124, 240);
+	margin: 2px 3px;
+	&:hover {
+		background-color: rgb(52, 87, 245);
+	}
+	&:disabled {
+		opacity: 0.7;
+		filter: grayscale(0.6);
+		cursor: not-allowed;
+	}
+	&.-active {
+		font-weight: 900;
+		background-color: rgb(68, 0, 255);
+	}
+}
+
+a.testbtn {
+	padding: 5px 9px;
+	color: #fff;
+	border-radius: 3px;
+	background-color: rgb(240, 98, 98);
+	margin: 2px 3px;
+	&:hover {
+		background-color: rgb(245, 52, 52);
+	}
+	&:disabled {
+		opacity: 0.7;
+		filter: grayscale(0.6);
+		cursor: not-allowed;
+	}
+	&.-active {
+		font-weight: 900;
+		background-color: rgb(240, 2, 2);
+	}
+}

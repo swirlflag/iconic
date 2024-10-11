@@ -1,0 +1,23 @@
+{
+	"name": "nuxt-app",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"build": "nuxt build",
+		"dev": "env-cmd -f .env.local nuxt dev",
+		"generate": "nuxt generate",
+		"preview": "nuxt preview",
+		"postinstall": "nuxt prepare"
+	},
+	"dependencies": {
+		"@azure/identity": "^4.4.1",
+		"@azure/storage-blob": "^12.25.0",
+		"env-cmd": "^10.1.0",
+		"formidable": "^3.5.1",
+		"sass": "^1.79.5",
+		"vue": "latest"
+	},
+	"devDependencies": {
+		"nuxt": "^3.13.2"
+	}
+}
