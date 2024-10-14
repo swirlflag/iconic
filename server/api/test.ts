@@ -2,7 +2,6 @@ import { useContainer } from "../utils";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import formidable from "formidable";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -39,11 +38,11 @@ export default defineEventHandler(async (event) => {
 		// console.log("Downloaded blob content:", downloadedData);
 
 		// 랜덤 업로드
-		// const fileName = "emptyFile.txt";
-		// const filePath = path.join(__dirname, fileName);
+		// const filename = "emptyFile.txt";
+		// const filePath = path.join(__dirname, filename);
 
 		// fs.writeFileSync(filePath, "");
-		// console.log(`Empty file '${fileName}' created successfully.`);
+		// console.log(`Empty file '${filename}' created successfully.`);
 
 		// const blobName = "myfiletest.txt";
 		// const blockBlobClient = containerClient.getBlockBlobClient(blobName);

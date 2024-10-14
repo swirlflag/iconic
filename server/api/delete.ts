@@ -1,4 +1,4 @@
-import { useContainer, streamToString } from "../utils";
+import { useContainer, streamToString, updateDataAndScript } from "../utils";
 
 export default defineEventHandler(async (event) => {
 	const body = await readBody(event);
@@ -22,8 +22,7 @@ export default defineEventHandler(async (event) => {
 		await file_blob.delete();
 		delete data[name];
 
-		const flatData = JSON.stringify(data, null, 4);
-		await data_blob.upload(flatData, flatData.length);
+		await updateDataAndScript(data);
 
 		return {
 			data,

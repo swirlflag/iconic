@@ -5,4 +5,13 @@ export default defineNuxtConfig({
 	future: {
 		compatibilityVersion: 4,
 	},
+	vite: {
+		css: {
+			preprocessorOptions: {
+				scss: {
+					api: "modern-compiler",
+				},
+			},
+		},
+	},
 });
