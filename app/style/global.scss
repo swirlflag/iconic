@@ -1,0 +1,72 @@
+::-webkit-scrollbar {
+	width: 7px;
+	height: 7px;
+}
+::-webkit-scrollbar-thumb {
+	background-color: #000;
+	// border-left: 1px solid #fff;
+
+	// box-shadow: 0 0 10px #000;
+}
+::-webkit-scrollbar-thumb:hover {
+	cursor: grab;
+	// background-color: rgba(55, 65, 82, 1);
+	// border: 1px solid rgba(255, 255, 255, 0.6);
+}
+::-webkit-scrollbar-thumb:active {
+	cursor: grabbing;
+}
+::-webkit-scrollbar-track {
+	cursor: pointer;
+	border-left: 1px solid #000;
+	background-color: #fff;
+	// background-color: rgba(218, 232, 255, 1);
+}
+
+html,
+body {
+}
+
+body {
+	font-family: "Pretendard Variable", "Pretendard", -apple-system, "BlinkMacSystemFont", system-ui, "Roboto",
+		"Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji",
+		"Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+	font-size: 16px;
+	word-break: keep-all;
+	width: 100%;
+	box-sizing: border-box;
+	-webkit-overflow-scrolling: touch !important;
+	-webkit-font-smoothing: antialiased;
+	-webkit-tap-highlight-color: transparent;
+	font-weight: 400;
+	letter-spacing: -0.02em;
+
+	a,
+	button,
+	input,
+	textarea,
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		font-family: "Pretendard Variable", "Pretendard", -apple-system, "BlinkMacSystemFont", system-ui, "Roboto",
+			"Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji",
+			"Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+		font-size: 16px;
+		word-break: keep-all;
+		width: 100%;
+		box-sizing: border-box;
+		-webkit-overflow-scrolling: touch !important;
+		-webkit-font-smoothing: antialiased;
+		-webkit-tap-highlight-color: transparent;
+		font-weight: 400;
+		letter-spacing: -0.02em;
+	}
+}
+
+#__nuxt {
+	box-sizing: border-box;
+	width: 100%;
+}

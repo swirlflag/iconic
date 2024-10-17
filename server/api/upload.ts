@@ -55,13 +55,9 @@ export default defineEventHandler(async (event) => {
 	// 읽어온 파일을 확인후 업로드하고, data.json 파일을 업데이트한다.
 	await file_blob.upload(file.data, file.data.length, file_uploadOptions);
 	data[fields["name"]] = {
-		name: fields["name"],
-		prefix: fields["prefix"],
-		fillType: fields["fillType"],
-		boxSize: fields["boxSize"],
-		defaultColor: fields["defaultColor"],
-		fileExtention,
-		filename,
+		...fields,
+		ext: fileExtention,
+		// filename,
 	};
 
 	await updateDataAndScript(data);

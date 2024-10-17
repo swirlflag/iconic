@@ -1,0 +1,110 @@
+$gap: 12px;
+$gap2: $gap * 0.5;
+
+button.button {
+	border: 1px solid #000;
+	font-size: 16px;
+	color: #fff;
+	border: 1px solid #fff;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	padding: $gap2 $gap;
+	font-weight: 600;
+	&:hover {
+		background-color: #fff;
+		color: #000;
+	}
+}
+
+input[type="file"] {
+}
+input[type="checkbox"] {
+}
+
+.title-1 {
+	font-size: 24px;
+	font-weight: 600;
+}
+.title-2 {
+	font-size: 18px;
+	font-weight: 600;
+}
+.description {
+	font-size: 16px;
+}
+.box-x {
+	display: flex;
+	gap: $gap2;
+}
+.box-y {
+	display: flex;
+	gap: $gap2;
+	flex-direction: column;
+}
+
+.icon-list {
+	display: grid;
+	border: 1px solid #000;
+}
+.icon-item {
+	border: 1px solid #000;
+	width: 100px;
+	display: flex;
+	flex-direction: column;
+}
+
+i[class^="icon--"] {
+	width: auto;
+	height: auto;
+	aspect-ratio: 1 / 1;
+	i {
+	}
+}
+
+.page--main {
+	height: 100vh;
+	max-width: 100vw;
+	display: flex;
+
+	.controls {
+		overflow-y: auto;
+		width: 400px;
+		height: 100%;
+		flex: 0 0 auto;
+		border-right: 1px solid #000;
+		color: #fff;
+		background-color: #000;
+		display: flex;
+		flex-direction: column;
+
+		.project-name {
+			font-size: 34px;
+			font-weight: 600;
+			padding: $gap;
+			min-height: 100px;
+			display: inline-flex;
+			// align-items: center;
+			// justify-content: center;
+			align-items: flex-end;
+		}
+		._block {
+			padding: $gap;
+
+			border-top: 1px solid #fff;
+			display: flex;
+			flex-direction: column;
+		}
+		._bottom-marker {
+			margin-top: auto;
+		}
+	}
+
+	.gallery {
+		width: 100%;
+		padding: $gap;
+		// border-left: 1px solid #000;
+		// margin-left: $gap;
+		overflow-y: auto;
+	}
+}

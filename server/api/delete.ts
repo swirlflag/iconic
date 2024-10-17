@@ -19,7 +19,7 @@ export default defineEventHandler(async (event) => {
 		}
 
 		const file_blob = container.getBlockBlobClient(data[name].filename);
-		await file_blob.delete();
+		await file_blob.deleteIfExists();
 		delete data[name];
 
 		await updateDataAndScript(data);

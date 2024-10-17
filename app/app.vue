@@ -6,3 +6,4 @@
 <script setup></script>
 <style lang="scss" src="./style/reset.css"></style>
 <style lang="scss" src="./style/test.scss"></style>
+<style lang="scss" src="./style/global.scss"></style>

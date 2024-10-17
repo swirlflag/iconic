@@ -47,8 +47,8 @@ export default defineEventHandler(async (event) => {
 		...beforeData,
 		[fields["name"]]: {
 			name: fields["name"],
-			fileExtention: fileExtention,
-			filename: blobName,
+			ext: fileExtention,
+			// filename: blobName,
 		},
 	};
 
