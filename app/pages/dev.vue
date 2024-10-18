@@ -47,7 +47,7 @@
 									<template v-if="viewAzure">
 										<img
 											class="icon"
-											:src="`https://jarviskcst.blob.core.windows.net/temp/${item.filename}`"
+											:src="`https://jarviskcst.blob.core.windows.net/temp/${item.name}.${item.ext}`"
 											:style="item.img_style"
 										/>
 									</template>
@@ -82,6 +82,17 @@
 				</select>
 				<br />
 				<div>box size: <input type="range" v-model="select.form.box" /> {{ select.form.box }}%</div>
+
+				<div>
+					pos x:
+					<input type="range" v-model="select.form.pos[0]" />
+					{{ select.form.pos[0] }}%
+				</div>
+				<div>
+					pos y:
+					<input type="range" v-model="select.form.pos[1]" />
+					{{ select.form.pos[1] }}%
+				</div>
 
 				<div>
 					<div>
@@ -285,9 +296,13 @@ const renderList = computed(() => {
 
 		const boxSize = status.isBoxMode ? v.box : 100;
 		const [posX, posY] = v.pos.split(",");
+
 		// i_style["background-size"] = `${boxSize}% ${boxSize}%`;
 		// i_style["mask-size"] = `${boxSize}% ${boxSize}%`;
-		img_style.transform = `scale(${boxSize}%) translate(${posX}%, ${posY}%)`;
+
+		if (status.isBoxMode) {
+			img_style.transform = `scale(${boxSize}%) translate(${posX - 50}%, ${posY - 50}%)`;
+		}
 
 		if (isSelect) {
 			if (isSolid) {
@@ -296,8 +311,8 @@ const renderList = computed(() => {
 				i_style.color = "transparent";
 			}
 			if (status.isBoxMode) {
-				const [posX2, posY2] = select["form"].pos.split(",");
-				const transform = `scale(${select["form"].box}%) translate(${posX2}%, ${posY2}%)`;
+				const [posX2, posY2] = select?.["form"]?.pos || [50, 50];
+				const transform = `scale(${select["form"].box}%) translate(${posX2 - 50}%, ${posY2 - 50}%)`;
 				i_style.transform = transform;
 				img_style.transform = transform;
 			}
@@ -335,8 +350,12 @@ const callScript = () => {
 watch(
 	() => select.index,
 	() => {
+		const target = select.target;
+
+		const pos = target?.pos.split(",") || [50, 50];
 		select.form = {
 			...select.target,
+			pos,
 		};
 	},
 );
@@ -443,6 +462,7 @@ const API_update = async () => {
 	formData.append("fill", select.form.fill);
 	formData.append("box", select.form.box);
 	formData.append("color", select.form.color);
+	formData.append("pos", select.form.pos);
 
 	try {
 		// 서버에 파일 업로드 요청

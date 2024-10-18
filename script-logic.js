@@ -68,9 +68,12 @@ const styleTagText = `
 			const fillProps = fillPropsMap[item.fill];
 			const isSolid = item.fill === "solid";
 			const color = isSolid ? item.color || defaultColor : "transparent";
+			console.log(color);
 			const filename = `${item.name}.${item.ext}`;
 			// const posX = item.pos[0] || "center";
-			const [x, y] = item.pos.split(",");
+			const [posX, posY] = item?.pos?.split(",") || [50, 50];
+			const x = posX - 50;
+			const y = posY - 50;
 			const transform = `scale(${boxSize}%) translate(${x}%, ${y}%)`;
 
 			return `
@@ -81,10 +84,9 @@ const styleTagText = `
 					${fillProps}-image: url(${getUrl(filename)});
 				}
 				i.i--${item.name}.-box::after {
-					/** ${fillProps}-size: ${boxSize}%; **/
 					transform: ${transform};
+					${!isSolid ? "background-color: inherit;" : ""}
 				}
-
 			`;
 		})
 		.join("")}

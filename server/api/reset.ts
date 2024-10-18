@@ -15,7 +15,8 @@ export default defineEventHandler(async (event) => {
 		const list = Object.values(data);
 
 		list.forEach(async (item) => {
-			await container.getBlockBlobClient(item.filename).deleteIfExists();
+			const filename = `${item.name}.${item.ext}`;
+			await container.getBlockBlobClient(filename).deleteIfExists();
 		});
 
 		await updateDataAndScript({});
