@@ -1,0 +1,126 @@
+@use "./variables" as *;
+
+@mixin sx2 {
+	@media all and (max-width: $SIZE_BREAKPOINT_SX2) {
+		@content;
+	}
+}
+@mixin sx {
+	@media all and (max-width: $SIZE_BREAKPOINT_SX) {
+		@content;
+	}
+}
+@mixin sm {
+	@media all and (max-width: $SIZE_BREAKPOINT_SM) {
+		@content;
+	}
+}
+@mixin md {
+	@media all and (max-width: $SIZE_BREAKPOINT_MD) {
+		@content;
+	}
+}
+@mixin lg {
+	@media all and (max-width: $SIZE_BREAKPOINT_LG) {
+		@content;
+	}
+}
+@mixin lx {
+	@media all and (max-width: $SIZE_BREAKPOINT_LX) {
+		@content;
+	}
+}
+@mixin lx2 {
+	@media all and (max-width: $SIZE_BREAKPOINT_LX2) {
+		@content;
+	}
+}
+@mixin lx3 {
+	@media all and (max-width: $SIZE_BREAKPOINT_LX3) {
+		@content;
+	}
+}
+
+// 스마트폰 사이즈
+@mixin mobile {
+	@media all and (max-width: $SIZE_BREAKPOINT_MOBILE) {
+		@content;
+	}
+}
+// 스마트폰 이상
+@mixin roomy {
+	@media all and (min-width : #{$SIZE_BREAKPOINT_MOBILE + 1}) {
+		@content;
+	}
+}
+@mixin wide {
+	@media all and (min-width : #{$SIZE_BREAKPOINT_MOBILE + 1}) {
+		@content;
+	}
+}
+// 태블릿 사이즈 전용
+@mixin tablet {
+	@media all and (max-width: $SIZE_BREAKPOINT_TABLET) and (min-width: $SIZE_BREAKPOINT_MOBILE) {
+		@content;
+	}
+}
+// 태블릿을 포함하는 모바일 사이즈
+@mixin portable {
+	@media all and (max-width: $SIZE_BREAKPOINT_TABLET) {
+		@content;
+	}
+}
+// 데스크탑 이상
+@mixin desktop {
+	@media all and (min-width : #{$SIZE_BREAKPOINT_TABLET + 1}) {
+		@content;
+	}
+}
+
+// 받은 값보다 이하일때
+@mixin lessthan($size) {
+	@media all and (max-width: $size) {
+		@content;
+	}
+}
+
+@mixin morethan($size) {
+	@media all and (min-width: $size) {
+		@content;
+	}
+}
+
+@mixin portrait {
+	@media (orientation: portrait) {
+		@content;
+	}
+}
+@mixin landscape {
+	@media (orientation: landscape) {
+		@content;
+	}
+}
+
+// 터치가 사용되지 않는 환경
+@mixin unuseTouch {
+	#app.touch--unuse & {
+		@content;
+	}
+}
+
+// 실제 모바일 기기에 적용
+@mixin device-mobile {
+	body.device--mobile & {
+		@content;
+	}
+}
+
+// 모바일 기기 거나, 모바일 사이즈 일때 적용
+@mixin either-mobile {
+	body.device--mobile & {
+		@content;
+	}
+	@include mobile {
+		@content;
+	}
+}

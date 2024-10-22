@@ -1,24 +1,128 @@
-# Nuxt dev/build outputs
-.output
-.data
+# Created by https://www.toptal.com/developers/gitignore/api/nuxtjs,visualstudiocode,vuejs,vue,windows,macos
+# Edit at https://www.toptal.com/developers/gitignore?templates=nuxtjs,visualstudiocode,vuejs,vue,windows,macos
+
+### macOS ###
+# General
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Icon must end with two \r
+# Icon
+
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+### macOS Patch ###
+# iCloud generated files
+*.icloud
+
+### Nuxtjs ###
+# Nuxt build
+.nuxt
+
+# Nuxt generate
+dist
+
+node_modules
+*.log*
 .nuxt
 .nitro
 .cache
+.output
 dist
 
-# Node dependencies
-node_modules
+### VisualStudioCode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
 
-# Logs
-logs
-*.log
+# Local History for Visual Studio Code
+.history/
 
-# Misc
-.DS_Store
-.fleet
-.idea
+# Built Visual Studio Code Extensions
+*.vsix
 
-# Local env files
-.env
-.env.*
-!.env.example
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+.history
+.ionide
+
+### Vue ###
+# gitignore template for Vue.js projects
+#
+# Recommended template: Node.gitignore
+
+# TODO: where does this rule come from?
+docs/_book
+
+# TODO: where does this rule come from?
+test/
+
+### Vuejs ###
+# Recommended template: Node.gitignore
+
+node_modules/
+dist/
+npm-debug.log
+yarn-error.log
+
+### Windows ###
+# Windows thumbnail cache files
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+
+# Dump file
+*.stackdump
+
+# Folder config file
+[Dd]esktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk
+
+# End of https://www.toptal.com/developers/gitignore/api/nuxtjs,visualstudiocode,vuejs,vue,windows,macos
+
+
+.nuxt-storybook
+storybook-static
+
+
+
+# 크롤링 데이터
+data/crawl-data.js
+data/crawl-data.json
+
+.env.local

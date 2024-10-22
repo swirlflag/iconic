@@ -1,0 +1,152 @@
+/*
+	아래 :root 값들은 앱 내부 스크립트에 따라 동적으로 변경됩니다.
+	참고 경로들
+	/plates/PlateNav/index.vue
+*/
+:root {
+	--window-width: 100vw;
+	--window-height: 100vh;
+	--page-height: 100vh;
+
+	--navtop-height: 0px;
+	--navtop-gap: 0px;
+
+	--gnb-height: 80px;
+	--gnb-gap: 0;
+
+	--nexon-gnb-height: 62px;
+	--nexon-gnb-gap: 0;
+
+	--event-gnb-gap: 0;
+	--event-gnb-height: 0;
+	color-scheme: light;
+}
+
+::-webkit-scrollbar {
+	width: 7px;
+	height: 7px;
+}
+::-webkit-scrollbar-thumb {
+	background-color: #000;
+	// border-left: 1px solid #fff;
+
+	// box-shadow: 0 0 10px #000;
+}
+::-webkit-scrollbar-thumb:hover {
+	cursor: grab;
+	// background-color: rgba(55, 65, 82, 1);
+	// border: 1px solid rgba(255, 255, 255, 0.6);
+}
+::-webkit-scrollbar-thumb:active {
+	cursor: grabbing;
+}
+::-webkit-scrollbar-track {
+	cursor: pointer;
+	border-left: 1px solid #000;
+	background-color: #fff;
+	// background-color: rgba(218, 232, 255, 1);
+}
+html,
+body {
+	min-height: 100%;
+	font-optical-sizing: auto;
+}
+html,
+body,
+#app {
+	touch-action: pan-y;
+}
+
+body {
+	font-size: $DEFAULT_fontsize;
+	overflow: overlay;
+	box-sizing: border-box;
+	font-smooth: always;
+	-webkit-overflow-scrolling: touch !important;
+	-webkit-font-smoothing: antialiased;
+	-webkit-tap-highlight-color: transparent;
+	word-break: keep-all;
+	width: 100%;
+	font-weight: $DEFAULT_fontWeight;
+
+	@include hardSelect {
+		line-height: $DEFAULT_lineHeight;
+		letter-spacing: $DEFAULT_letterSpacing;
+		color: $DEFAULT_color;
+		@include font-default;
+	}
+
+	&.-freeze {
+		user-select: none !important;
+	}
+	&.-scrolllock {
+		overflow: hidden !important;
+		#app {
+			overflow: hidden !important;
+		}
+	}
+
+	&.scroll--window {
+	}
+	&.scroll--app {
+		max-height: var(--window-height);
+		overflow: hidden;
+		#app {
+			max-height: var(--window-height);
+			overflow-y: auto;
+			box-sizing: border-box;
+		}
+	}
+}
+
+#__nuxt {
+	box-sizing: border-box;
+	width: 100%;
+}
+
+#app {
+	width: 100%;
+	box-sizing: border-box;
+}
+[id^="plate--"] {
+}
+#plate--base {
+	z-index: 4000;
+}
+#plate--toast {
+	z-index: 3010;
+}
+#plate--modal {
+	z-index: 3000;
+}
+#plate--nav {
+	z-index: 2000;
+}
+#plate--page {
+	z-index: 1;
+	// min-height: 100vh;
+}
+#plate--footer {
+	z-index: 1;
+}
+[class*="page--"] {
+	position: relative;
+}
+[class*="nav--"] {
+	// position: relative;
+}
+[class*="section--"] {
+	// position: relative;
+}
+
+.filter-svg {
+	height: 0 !important;
+	width: 0 !important;
+	opacity: 0;
+	visiblity: hidden;
+	position: absolute;
+	z-index: -999999;
+	left: -99999px;
+	overflow: visible !important;
+	top: -99999px;
+}

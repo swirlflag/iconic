@@ -1,0 +1,5 @@
+User-Agent: *
+Disallow: /t/
+Disallow: /etc/
+Disallow: /events/example/
+Sitemap: https://nnp.nexon.com/sitemap.xml

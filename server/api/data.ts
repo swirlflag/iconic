@@ -3,7 +3,6 @@ import { useContainer, streamToString } from "../utils";
 export default defineEventHandler(async (event) => {
 	try {
 		const container = useContainer();
-
 		const data_blob = container.getBlobClient("data.json");
 		const data_download = await data_blob.download(0);
 		const data_downloaded = await streamToString(data_download.readableStreamBody!);

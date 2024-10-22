@@ -1,0 +1,57 @@
+// 모든 레벨은 font-weight와 유사하게 100 단위로 작성. (400이 기본)
+
+// EASE 작성법 : EASE_{종류}
+$EASE_inSine: cubic-bezier(0.12, 0, 0.39, 0);
+$EASE_inCubic: cubic-bezier(0.32, 0, 0.67, 0);
+$EASE_inExpo: cubic-bezier(0.7, 0, 0.84, 0);
+$EASE_inCirc: cubic-bezier(0.55, 0, 1, 0.45);
+$EASE_inBack: cubic-bezier(0.36, 0, 0.66, -0.56);
+$EASE_outSine: cubic-bezier(0.61, 1, 0.88, 1);
+$EASE_outCubic: cubic-bezier(0.33, 1, 0.68, 1);
+$EASE_outCirc: cubic-bezier(0, 0.55, 0.45, 1);
+$EASE_outQuart: cubic-bezier(0.25, 1, 0.5, 1);
+$EASE_outQuint: cubic-bezier(0.22, 1, 0.36, 1);
+$EASE_outExpo: cubic-bezier(0.16, 1, 0.3, 1);
+$EASE_outBack: cubic-bezier(0.34, 1.56, 0.64, 1);
+$EASE_outBack2: cubic-bezier(0.34, 2.05, 0.56, 0.97);
+$EASE_outBack3: cubic-bezier(0.4, 2.5, 0.42, 0.73);
+$EASE_inOutSine: cubic-bezier(0.37, 0, 0.63, 1);
+$EASE_inOutCubic: cubic-bezier(0.65, 0, 0.35, 1);
+$EASE_inOutCirc: cubic-bezier(0.85, 0, 0.15, 1);
+$EASE_inOutQuart: cubic-bezier(0.76, 0, 0.24, 1);
+$EASE_inOutQuint: cubic-bezier(0.83, 0, 0.17, 1);
+$EASE_inOutExpo: cubic-bezier(0.87, 0, 0.13, 1);
+
+// 색상명 작성법 : COLOR_{색상분류}_{색상명:옵션}_{색상레벨}_{alpha:옵션}
+
+@function COLOR_black_400($a: 1) {
+	@return rgba(0, 0, 0, $a); // rgba(0, 0, 0, 1);
+}
+@function COLOR_red_400($a: 1) {
+	@return rgba(193, 59, 0, $a); // rgba(193, 59, 0, 1);
+}
+@function COLOR_blue_400($a: 1) {
+	@return rgba(79, 126, 246, $a); // rgba(79, 126, 246, 1);
+}
+
+// 사이즈 작성법 : SIZE_{분기}_{종류}_{레벨:옵션}
+$SIZE_BREAKPOINT_SX2: 320px;
+$SIZE_BREAKPOINT_SX: 480px;
+$SIZE_BREAKPOINT_SM: 576px;
+$SIZE_BREAKPOINT_MD: 768px;
+$SIZE_BREAKPOINT_LG: 1024px;
+$SIZE_BREAKPOINT_LX: 1200px;
+$SIZE_BREAKPOINT_LX2: 1400px;
+$SIZE_BREAKPOINT_LX3: 1600px;
+
+$SIZE_BREAKPOINT_MOBILE: $SIZE_BREAKPOINT_MD;
+$SIZE_BREAKPOINT_TABLET: $SIZE_BREAKPOINT_LG;
+
+$SIZE_inPadding: 14px;
+$SIZE_MO_inPadding: 10px;
+
+$SIZE_contentWidth: 1400px + ($SIZE_inPadding * 2);
+$SIZE_MO_contentWidth: 520px + ($SIZE_MO_inPadding * 2);
+
+// 폰트 사이즈 작성법 : SIZE_FONT_{폰트분류}_{폰트레벨}
+$SIZE_FONT_paragraph_400: 16px;

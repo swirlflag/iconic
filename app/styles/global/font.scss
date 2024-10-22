@@ -1,0 +1,17 @@
+// 모듈 설치는 app/plugins/font.client.js 에서 진행
+
+@font-face {
+	font-family: "NEXON Gothic Bold";
+	src: url("/font/NEXON%20Lv1%20Gothic%20Low%20OTF%20Bold.woff") format("woff");
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "NEXON Gothic";
+	src: url("/font/NEXON%20Lv1%20Gothic%20Low%20OTF.woff") format("woff");
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}

@@ -1,0 +1,282 @@
+@use "./variables" as *;
+@use "./media" as *;
+
+@function cdn($path) {
+	@return url($cdnurl + $path);
+}
+@function assets($path) {
+	@return url("~/assets/" + $path);
+}
+@function localtest($path) {
+	@return url("~/assets/localtest/" + $path);
+}
+@function per($value, $percent: 1) {
+	@return #{$value * $percent};
+}
+
+@function sprite($image, $time, $xlength, $ylength) {
+	// background-image: ;
+}
+
+@mixin bg($source: "", $size: contain, $pos: 50% 50%, $repeat: no-repeat) {
+	background-image: $source;
+	background-size: $size;
+	background-position: $pos;
+	background-repeat: $repeat;
+}
+@mixin bg-cdn($source: "", $size: contain, $pos: 50% 50%, $repeat: no-repeat) {
+	background-image: cdn($source);
+	background-size: $size;
+	background-position: $pos;
+	background-repeat: $repeat;
+}
+@mixin source-basic($fit: contain) {
+	display: inline-block;
+	vertical-align: top;
+	object-fit: $fit;
+	object-position: center;
+}
+
+// 하위 시멘틱 태그들까지 강력하게 셀렉팅
+@mixin hardSelect {
+	@content;
+	a,
+	button,
+	input,
+	textarea,
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		@content;
+	}
+}
+
+@mixin hideScrollbar {
+	&::-webkit-scrollbar {
+		opacity: 0;
+		visibility: hidden;
+		width: 0;
+		height: 0;
+	}
+}
+
+@mixin microScrollbar($background: transparent) {
+	&::-webkit-scrollbar {
+		width: 6px;
+		border-right: 2px solid transparent;
+	}
+	&::-webkit-scrollbar-thumb {
+		background: linear-gradient(
+			90deg,
+			rgba(125, 125, 125, 0.6) 0%,
+			rgba(125, 125, 125, 0.6) 70%,
+			rgba(125, 125, 125, 0) 70%,
+			rgba(125, 125, 125, 0) 100%
+		);
+	}
+	&::-webkit-scrollbar-track {
+		// display: none;
+		background-color: $background;
+	}
+
+	&::-webkit-scrollbar:horizontal {
+		height: 6px;
+		border-right: 2px solid transparent;
+	}
+	&::-webkit-scrollbar-thumb:horizontal {
+		background: linear-gradient(
+			180deg,
+			rgba(125, 125, 125, 0.6) 0%,
+			rgba(125, 125, 125, 0.6) 70%,
+			rgba(125, 125, 125, 0) 70%,
+			rgba(125, 125, 125, 0) 100%
+		);
+	}
+	&::-webkit-scrollbar-track:horizontal {
+		// display: none;
+		background-color: $background;
+	}
+}
+
+@mixin hover {
+	@media (pointer: fine) {
+		&:hover {
+			@content;
+		}
+	}
+}
+
+// 터치 영역 보정
+@mixin touchCorrection($size: 20px) {
+	&::before {
+		content: "";
+		width: 100%;
+		height: 100%;
+		padding: $size;
+	}
+}
+
+// 표준 inPadding
+@mixin standardInnerPadding {
+	padding-left: $SIZE_inPadding;
+	padding-right: $SIZE_inPadding;
+	@include mobile {
+		padding-left: $SIZE_MO_inPadding;
+		padding-right: $SIZE_MO_inPadding;
+	}
+}
+
+// 범용 레이아웃을 적용하려는 타겟에 적용
+@mixin layoutTarget($customWidth: null) {
+	// 만약 customWidth가 제공되면 그 값을 사용하고, 아니면 기본값을 사용
+	@if $customWidth {
+		max-width: $customWidth;
+	} @else {
+		max-width: $SIZE_contentWidth;
+	}
+
+	margin-right: auto;
+	margin-left: auto;
+	@include standardInnerPadding;
+
+	@include mobile {
+		@if $customWidth {
+			// 모바일에서도 동일한 customWidth가 적용되도록 설정
+			max-width: $customWidth;
+		} @else {
+			max-width: $SIZE_MO_contentWidth;
+		}
+	}
+}
+
+// 레이아웃 부모에 적용 (layout 자식 엘리먼트는 layoutTarget이 적용됨)
+@mixin layout {
+	display: flex;
+	flex-direction: column;
+
+	> * {
+		width: 100%;
+		box-sizing: border-box;
+
+		&:not(.layout-escape) {
+			@include layoutTarget;
+		}
+	}
+}
+
+// layout 내에서, 레이아웃 영역을 탈출하려는 요소에 사용
+@mixin layoutEscape {
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+	max-width: unset !important;
+}
+@mixin layout-escape {
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+	max-width: unset !important;
+}
+
+// 텍스트 숨김 처리
+@mixin hidetext() {
+	font-size: 0 !important;
+	color: transparent !important;
+	-webkit-text-size-adjust: none;
+}
+
+@mixin ratiobox($percent: 100%) {
+	height: auto;
+	&::before {
+		content: "";
+		width: 0;
+		height: 0;
+		display: inline-block;
+		vertical-align: top;
+		padding-top: $percent;
+	}
+}
+
+@mixin text-gradient($gradient: linear-gradient(180deg, rgba(0, 0, 0, 1) 0%, rgba(33, 16, 15, 1) 100%)) {
+	background: $gradient;
+	background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+@mixin text-mask($source) {
+	background-image: $source;
+	background-repeat: no-repeat;
+	background-size: auto auto;
+	background-position: center;
+	background-clip: text;
+	-webkit-background-clip: text;
+	color: transparent;
+}
+
+@mixin sourcebox() {
+	display: inline-flex;
+	box-sizing: border-box;
+
+	img,
+	video {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		object-position: center;
+		object-fit: contain;
+		display: inline-block;
+	}
+}
+
+@mixin sensor-padding($padding: 10px) {
+	&::before {
+		content: "";
+		width: 100%;
+		height: 100%;
+		box-sizing: content-box;
+		position: absolute;
+		left: #{$padding * -1};
+		top: #{$padding * -1};
+		padding: $padding;
+	}
+}
+
+@mixin position-center {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate3d(-50%, -50%, 0);
+}
+
+@mixin text-stroke($width: 2px, $color: #000) {
+	text-shadow: calc($width * 1) calc($width * 0) 0 $color, calc($width * 0.9239) calc($width * 0.3827) 0 $color,
+		calc($width * 0.7071) calc($width * 0.7071) 0 $color, calc($width * 0.3827) calc($width * 0.9239) 0 $color,
+		calc($width * 0) calc($width * 1) 0 $color, calc($width * -0.3827) calc($width * 0.9239) 0 $color,
+		calc($width * -0.7071) calc($width * 0.7071) 0 $color, calc($width * -0.9239) calc($width * 0.3827) 0 $color,
+		calc($width * -1) calc($width * 0) 0 $color, calc($width * -0.9239) calc($width * -0.3827) 0 $color,
+		calc($width * -0.7071) calc($width * -0.7071) 0 $color, calc($width * -0.3827) calc($width * -0.9239) 0 $color,
+		calc($width * 0) calc($width * -1) 0 $color, calc($width * 0.3827) calc($width * -0.9239) 0 $color,
+		calc($width * 0.7071) calc($width * -0.7071) 0 $color, calc($width * 0.9239) calc($width * -0.3827) 0 $color;
+}
+
+// --------------------- font ---------------------
+@mixin font-serif {
+	font-family: serif;
+}
+@mixin font-roboto {
+	font-family: "Roboto", "Pretendard Variable", Pretendard, sans-serif;
+}
+@mixin font-pretendard {
+	font-family: "Pretendard Variable", "Pretendard", -apple-system, "BlinkMacSystemFont", system-ui, "Roboto",
+		"Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji",
+		"Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+}
+@mixin font-default {
+	font-family: "Pretendard Variable", "Pretendard", -apple-system, "BlinkMacSystemFont", system-ui, "Roboto",
+		"Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji",
+		"Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+}
+@mixin font-nexon {
+	font-family: "NEXON Gothic", "Pretendard Variable", Pretendard, sans-serif;
+}

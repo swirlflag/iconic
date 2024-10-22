@@ -2,7 +2,7 @@ import { useContainer, streamToString, updateDataAndScript } from "../utils";
 
 export default defineEventHandler(async (event) => {
 	const body = await readBody(event);
-	const name = body.name;
+	const key = body.key;
 
 	try {
 		const container = useContainer();
@@ -12,15 +12,17 @@ export default defineEventHandler(async (event) => {
 		const data_downloaded = await streamToString(data_download.readableStreamBody!);
 		const data = JSON.parse(data_downloaded);
 
-		if (!data[name]) {
+		if (!data[key]) {
 			return {
 				message: "그런이름없음",
 			};
 		}
 
-		const file_blob = container.getBlockBlobClient(data[name].filename);
-		await file_blob.delete();
-		delete data[name];
+		const filename = `${key}.${data[key].ext}`;
+
+		const file_blob = container.getBlockBlobClient(filename);
+		await file_blob.deleteIfExists();
+		delete data[key];
 
 		await updateDataAndScript(data);
 
