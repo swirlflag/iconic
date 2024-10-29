@@ -1,14 +1,15 @@
 <template>
-	<div class="plate--nav__padding" :style="{ height: navtopHeight + 'px' }"></div>
+	<div class="plate--nav__padding" :style="{ height: height + 'px' }"></div>
 </template>
+
 <script setup>
 import { useNavStore } from "@store";
 const navStore = useNavStore();
-const navtopHeight = computed(() => {
-	return navStore.navtopHeight;
+const height = computed(() => {
+	return navStore?.top?.gap || 0;
 });
 </script>
-<style></style>
+
 <style lang="scss" scoped>
 .plate--nav__padding {
 	display: flex;

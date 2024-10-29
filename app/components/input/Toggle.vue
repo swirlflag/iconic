@@ -9,10 +9,12 @@
 const model = defineModel({ default: false });
 const props = defineProps({});
 </script>
+
 <style lang="scss" scoped>
 $size: 32px;
 $ratio: 1.6666;
 $inPadding: 6px;
+
 label.input--toggle {
 	cursor: pointer;
 	display: inline-flex;
@@ -40,7 +42,7 @@ label.input--toggle {
 		position: absolute;
 		background-color: rgba(0, 0, 0, 1);
 		box-sizing: border-box;
-		transition: transform 400ms ease, background-color 300ms ease, border-color 300ms ease;
+		transition: transform 500ms $EASE_outExpo, background-color 200ms ease, border-color 200ms ease;
 		z-index: 2;
 	}
 

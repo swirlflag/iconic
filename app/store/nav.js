@@ -1,107 +1,83 @@
+const defaultSchema = {
+	use: false,
+	gap: true,
+	open: false,
+	hide: false,
+	fix: false,
+	height: 0,
+	type: "unset",
+	paths: {},
+};
+
+const DATA = {
+	gnb: {
+		type: "top",
+	},
+	"nexon-gnb": {
+		type: "top",
+	},
+};
+
+const refineData = Object.entries(DATA).reduce((p, [k, v]) => {
+	const defaults = deepCopy(defaultSchema);
+	p[k] = { ...defaults, ...v };
+	return p;
+}, {});
+
 export const useNavStore = defineStore("nav", () => {
 	const route = useRoute();
-	const gnb = reactive({
-		use: false,
-		gap: false,
-		height: 0,
-		open: false,
-		paths: {},
+
+	const status = reactive({ ...refineData });
+
+	const top = computed(() => {
+		const list = Object.values(status).filter((v) => v.type === "top") || [];
+		const [height, gap] = list.reduce(
+			(p, c) => {
+				p[0] += c.use ? c.height : 0;
+				p[1] += c.use && c.gap ? c.height : 0;
+				return p;
+			},
+			[0, 0],
+		);
+		return { list, height, gap };
 	});
 
-	const nexonGnb = reactive({
-		use: false,
-		gap: false,
-		height: 0,
-		hide: false,
-		fix: false,
-		paths: {},
-	});
+	const patch = (key, options = {}) => {
+		const target = status[key];
+		if (!target) {
+			return;
+		}
+
+		const path = options.path || route.path;
+		const before = target.paths[path] || {};
+		status[key].paths[path] = {
+			...before,
+			...options,
+		};
+	};
+
+	const use = (key, options = {}) => {
+		patch(key, { use: true, ...options });
+	};
+
+	const unuse = (key) => {
+		patch(key, { use: false });
+	};
 
 	watchEffect(() => {
-		const path = gnb.paths?.[route.path];
-		path?.use !== undefined && (gnb.use = path.use);
-		path?.gap !== undefined && (gnb.gap = path.gap);
-	});
-
-	watchEffect(() => {
-		const path = nexonGnb.paths?.[route.path];
-		path?.use !== undefined && (nexonGnb.use = path.use);
-		path?.gap !== undefined && (nexonGnb.gap = path.gap);
-		path?.fix !== undefined && (nexonGnb.fix = path.fix);
-	});
-
-	const useGnb = async ($payload = {}) => {
-		await nextTick();
-		const path = $payload.path || route.path;
-		gnb.paths[path] = {
-			...gnb.paths[path],
-			use: true,
-			gap: true,
-			...$payload,
-		};
-	};
-	const unuseGnb = async ($payload = {}) => {
-		await nextTick();
-		const path = $payload.path || route.path;
-		gnb.paths[path] = {
-			...gnb.paths[path],
-			use: false,
-			gap: false,
-			...$payload,
-		};
-	};
-	const openGnb = () => {
-		gnb.open = true;
-	};
-	const closeGnb = () => {
-		gnb.open = false;
-	};
-
-	const showNexonGnb = () => {
-		nexonGnb.hide = false;
-	};
-	const hideNexonGnb = () => {
-		nexonGnb.hide = true;
-	};
-
-	const useNexonGnb = async ($payload = {}) => {
-		await nextTick();
-		const path = $payload.path || route.path;
-		nexonGnb.paths[path] = {
-			...nexonGnb.paths[path],
-			use: true,
-			gap: true,
-			// fix: false,
-			...$payload,
-		};
-	};
-	const unuseNexonGnb = async ($payload = {}) => {
-		await nextTick();
-		const path = $payload.path || route.path;
-		nexonGnb.paths[path] = {
-			...nexonGnb.paths[path],
-			use: false,
-			gap: false,
-		};
-	};
-
-	const navtopHeight = computed(() => {
-		const gnbHeight = gnb.use && gnb.gap ? gnb.height : 0;
-		const nexonGnbHeight = nexonGnb.use && nexonGnb.gap ? nexonGnb.height : 0;
-		return gnbHeight + nexonGnbHeight;
+		Object.entries(status).forEach(([k, v]) => {
+			const pathOptions = v.paths?.[route.path];
+			if (pathOptions) {
+				status[k] = { ...status[k], ...pathOptions };
+			}
+		});
 	});
 
 	return {
-		gnb,
-		useGnb,
-		unuseGnb,
-		openGnb,
-		closeGnb,
-		nexonGnb,
-		showNexonGnb,
-		hideNexonGnb,
-		useNexonGnb,
-		unuseNexonGnb,
-		navtopHeight,
+		status,
+		top,
+		use,
+		unuse,
+		patch,
 	};
 });

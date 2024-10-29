@@ -20,7 +20,6 @@ export const streamToString = async (readableStream: NodeJS.ReadableStream): Pro
 };
 
 export const useContainer = () => {
-	console.log(ACCOUNT, KEY);
 	const blobServiceClient = new BlobServiceClient(
 		`https://${ACCOUNT}.blob.core.windows.net`,
 		new StorageSharedKeyCredential(ACCOUNT, KEY),

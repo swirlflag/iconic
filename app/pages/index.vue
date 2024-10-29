@@ -4,73 +4,93 @@
 			<div class="_depth _d1">
 				<h1 class="project-name">Icon in center</h1>
 
-				<div class="_block">
-					<div class="title-1">TESTTTT area</div>
-					<div>
-						<button class="testbtn" @click="TESTACTION">TESTACTION</button>
-					</div>
-					<div>DATA: <br />{{ DATA }}</div>
+				<div class="testdiv" v-if="0">
+					<InputText
+						v-model="TESTMODEL.value3"
+						v-model:valid="TESTMODEL.valid3"
+						placeholder="숫자만 ㄱㄱ"
+						validate="^([2-9]\d{2,3})-\d{4}|([2-9]\d{3})\d{4}$"
+						pattern="^\d{0,8}$"
+					/>
 					<br />
-					<div>refineData: <br />{{ refineData }}</div>
+					{{ TESTMODEL.value3 }}
 					<br />
-					<div>form: <br />{{ form }}</div>
+					{{ TESTMODEL.valid3 }}
 					<br />
-					<div>status:<br />{{ status }}</div>
-					<br />
-					<div>select:{{ select }}</div>
-					<br />
-					<div>openStatus:{{ openStatus }}</div>
 
-					<div>
-						box:
-						<InputToggle v-model="status.isBoxMode" />
-					</div>
-					<div>
-						guide:
-						<InputToggle v-model="status.isGuideMode" />
-					</div>
-					<div>
-						icon only
-						<InputToggle v-model="status.isIconOnly" />
-					</div>
-					<div>
-						invert background
-						<InputToggle v-model="status.isInvertBackground" />
-					</div>
+					<button class="testbtn" @click="TESTMODEL.value3 = '49451051'">콱</button>
 				</div>
-				<div class="box-y _block">
-					<div class="title-1">복잡한 기능</div>
-					<div class="description">더 복잡한 옵션을 확인합니다.</div>
-					<button class="button--basic" @click="() => stepRouter('complex')">확인</button>
+
+				<div class="_block">
+					<div class="title-1">표시 변경</div>
+					<div class="controls-entries"></div>
+					<table>
+						<tbody>
+							<tr>
+								<th>Scale (box)</th>
+								<td class="box-x">
+									<InputToggle v-model="status.isBoxMode" />
+								</td>
+							</tr>
+							<tr>
+								<th>Guideline</th>
+								<td class="box-x">
+									<InputToggle v-model="status.isGuideMode" />
+								</td>
+							</tr>
+							<tr>
+								<th>Icon only</th>
+								<td class="box-x">
+									<InputToggle v-model="status.isIconOnly" />
+								</td>
+							</tr>
+							<tr>
+								<th>Invert background</th>
+								<td class="box-x">
+									<InputToggle v-model="status.isInvertBackground" />
+								</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
+
 				<div class="box-y _block">
-					<div class="title-1">View</div>
+					<div class="title-1">View (미구현)</div>
 					<div class="description">아이콘 리스트 조회 화면을 편집 합니다.</div>
 					<div class="title-2">검색</div>
 					<div class="description">아이콘 정보를 검색합니다.</div>
 					<div class="box-x">
-						<input type="text" class="testinput" />
+						<InputText placeholder="미구현" disabled />
 					</div>
 					<div class="title-2">필터</div>
 					<div class="description">prefix 이름으로 필터링 합니다</div>
+					<div class="box-x">
+						<ButtonBasic disabled>미구현</ButtonBasic>
+					</div>
 					<div class="title-2">정렬</div>
 					<div class="description">prefix 이름으로 정렬 합니다</div>
+					<div class="box-x">
+						<ButtonBasic disabled>미구현</ButtonBasic>
+					</div>
 				</div>
 
 				<div class="_bottom-marker"></div>
 				<div class="box-y _block">
 					<div class="title-1">Upload</div>
-					<div class="description">새로운 아이콘을 업로드 합니다.</div>
-					<div class="box-x">
-						<button class="button--basic" @click="onClickReadyUpload">신규 업로드</button>
-					</div>
+					<div class="description">새로운 아이콘 업로드</div>
+					<div class="box-x"></div>
+					<ButtonBasic @click="onClickReadyUpload"> 확인 </ButtonBasic>
 				</div>
 				<div class="box-y _block">
 					<div class="title-1">Purge</div>
-					<div class="description">선택한 아이콘들을 퍼지합니다.</div>
-					<div class="box-x">
-						<button class="button--basic" @click="() => stepRouter('purge')">퍼지 선택</button>
-					</div>
+					<div class="description">소스 최신화 기능</div>
+					<ButtonBasic @click="() => stepRouter('purge')"> 확인 </ButtonBasic>
+					<div class="box-x"></div>
+				</div>
+				<div class="box-y _block">
+					<div class="title-1">복잡한 기능</div>
+					<div class="description">더 복잡한 옵션을 확인합니다.</div>
+					<ButtonBasic @click="() => stepRouter('complex')"> 확인 </ButtonBasic>
 				</div>
 			</div>
 
@@ -78,26 +98,25 @@
 				<div class="_depth _d2" v-if="checkBreadCrumb('purge', 2)">
 					<div class="_block box-y">
 						<div class="title-0">Purge</div>
-						<div class="description">퍼지가 필요한 아이콘들을 선택 후 퍼지를 진행해 주세요.</div>
+						<div class="description">최신화가 필요한 아이콘들을 선택 후 퍼지를 진행해 주세요.</div>
 					</div>
 					<div class="_block box-y">
-						<div class="title-1">선택된 리스트</div>
-						<div>
+						<div class="title-1">아이콘 퍼지</div>
+						<div class="description">선택된 아이콘 리스트를 최신화 합니다.</div>
+						<div class="box-x">
 							{{ select.list }}
 						</div>
+						<ButtonBasic :disabled="!select.list?.length" @click="tryPurgeIcon"> PURGE ! </ButtonBasic>
 					</div>
 					<div class="_block box-y">
-						<button
-							class="button--basic"
-							:class="{ '-disabled': !select.list?.length }"
-							@click="tryPurgeIcon"
-						>
-							PURGE !
-						</button>
+						<div class="title-1">스크립트 퍼지</div>
+						<div class="description">스크립트가 동기화 된 상태입니다.</div>
+						<ButtonBasic disabled> PURGE ! </ButtonBasic>
 					</div>
+					<div class="_block box-y"></div>
 					<div class="_bottom-marker"></div>
 					<div class="_block">
-						<button class="button--basic" @click="onClickBackDepth">BACK</button>
+						<ButtonBasic @click="onClickBackDepth"> BACK </ButtonBasic>
 					</div>
 				</div>
 				<div class="_depth _d2" v-if="checkBreadCrumb('complex', 2)">
@@ -112,8 +131,9 @@
 							<InputToggle />
 						</div>
 					</div>
+					<div class="_bottom-marker"></div>
 					<div class="_block">
-						<button class="button--basic" @click="onClickBackDepth">BACK</button>
+						<ButtonBasic @click="onClickBackDepth"> BACK </ButtonBasic>
 					</div>
 				</div>
 			</TransitionGroup>
@@ -121,10 +141,7 @@
 
 		<div class="gallery">
 			<div class="gallery-wrap">
-				{{ formStyle }}
-				<br />
-				{{ status }}
-				<ASC :AS="AS.DATA" initial="pending">
+				<ASC :AS="AS.DATA">
 					<div class="icon-list">
 						<template v-for="item in dataList">
 							<div
@@ -160,54 +177,18 @@
 			</div>
 
 			<div class="update-form" :class="{ '-active': openStatus.form }">
-				<div class="title-1">
-					<template v-if="status.isUpload">신규 업로드</template>
-					<template v-else>업데이트</template>
+				<div class="_header">
+					<div class="title-1">
+						<template v-if="status.isUpload">신규 업로드</template>
+						<template v-else>업데이트</template>
+					</div>
+					<div class="_description">
+						<template v-if="status.isUpload">새로운 아이콘을 업로드 합니다.</template>
+						<template v-else>기존 아이콘을 업데이트 합니다.</template>
+					</div>
 				</div>
-				<div class="testdiv">form : {{ form }}</div>
-				<div class="testdiv">formComputed: {{ formComputed }}</div>
-				<div class="testdiv">formStyle: {{ formStyle }}</div>
 
-				<div class="testdiv">
-					<ClientOnly>
-						<template v-if="status.isUpload">
-							<div>
-								name:
-								<input type="text" class="testinput" v-model="form.name" />
-							</div>
-							<div>
-								prefix:
-								<select v-model="form.prefix">
-									<template v-for="[k, v] in Object.entries(prefixData)">
-										<option :value="k">{{ v }}</option>
-									</template>
-								</select>
-							</div>
-							<div>
-								fill:
-								<select v-model="form.fill">
-									<template v-for="key in Object.keys(fillPropsMap)">
-										<option :value="key">{{ key }}</option>
-									</template>
-								</select>
-							</div>
-						</template>
-						<br />
-
-						<div>
-							사용 코드 미리보기:
-							<code> {{ formComputed.code }}</code>
-						</div>
-						<div>box size: <input type="range" v-model="form.box" /> {{ form.box }}%</div>
-
-						<div>pos x: <input type="range" v-model="form.pos[0]" /> {{ form.pos[0] }}%</div>
-
-						<div>pos y: <input type="range" v-model="form.pos[1]" /> {{ form.pos[1] }}%</div>
-
-						<div>color: <input type="color" v-model="form.color" /> {{ form.color }}</div>
-					</ClientOnly>
-				</div>
-				<div class="box-x">
+				<div class="_preview">
 					<div
 						class="_icon"
 						:class="{
@@ -217,27 +198,126 @@
 						}"
 					>
 						<div class="_file-select" v-if="status.isUpload">
-							<button class="button--basic">
-								<input type="file" @change="onChangeFileInput" />
+							<ButtonBasic>
 								파일 선택
-							</button>
+								<input type="file" @change="onChangeFileInput" />
+							</ButtonBasic>
 						</div>
-
 						<i class="form-icon" :class="{ '-box': status.isBoxMode }">
 							<span :style="formStyle"></span>
 						</i>
 					</div>
-					<div class="box-y">
-						<button class="button--basic" @click="onClickUpdateIcon">
-							{{ status.isUpload ? "업로드" : "수정하기" }}
-						</button>
-						<template v-if="!status.isUpload">
-							<NuxtLink class="button--basic" :to="form.url" download target="_blank">
-								다운로드(미구현)
-							</NuxtLink>
-							<button class="button--basic hover--red" @click="onClickDeleteIcon">삭제하기</button>
-						</template>
-					</div>
+
+					<InputRange class="_range-x" v-model="form.pos[0]" />
+					<InputRange class="_range-y" v-model="form.pos[1]" />
+				</div>
+
+				<div class="_entries">
+					<table>
+						<tbody>
+							<tr>
+								<th>Position</th>
+								<td class="box-x">
+									<InputText
+										v-model="form.pos[0]"
+										prefix="x"
+										suffix="%"
+										placeholder="00"
+										right
+										pattern="^(100|[1-9]?[0-9])$"
+										@blur="(e, options) => onBlurInputPercent(50, options)"
+										class="_percent"
+									/>
+									<InputText
+										v-model="form.pos[1]"
+										prefix="y"
+										suffix="%"
+										placeholder="00"
+										right
+										pattern="^(100|[1-9]?[0-9])$"
+										@blur="(e, options) => onBlurInputPercent(50, options)"
+										class="_percent"
+									/>
+								</td>
+							</tr>
+							<tr>
+								<th>Scale</th>
+								<td class="box-x">
+									<InputRange v-model="form.box" />
+									<InputText
+										v-model="form.box"
+										suffix="%"
+										placeholder="00"
+										right
+										pattern="^(100|[1-9]?[0-9])$"
+										@blur="(e, options) => onBlurInputPercent(70, options)"
+										class="_percent"
+									/>
+								</td>
+							</tr>
+							<tr>
+								<th>Fill type</th>
+								<td class="box-x">
+									<div>
+										<ButtonBasic> {{ form.fill }} </ButtonBasic>
+										<InputSelector :list="Object.keys(fillPropsMap)" v-model:value="form.fill" />
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<th>Color</th>
+								<td class="box-x">
+									<ClientOnly>
+										<InputColor v-model="form.color" :disabled="form.fill === 'origin'" />
+									</ClientOnly>
+								</td>
+							</tr>
+
+							<tr>
+								<th>Prefix</th>
+								<td class="box-x">
+									<ButtonBasic :disabled="!status.isUpload">
+										{{ prefixData[form.prefix] }}
+										<InputSelector
+											:list="Object.entries(prefixData).map(([k, v]) => ({ name: v, value: k }))"
+											v-model:value="form.prefix"
+										/>
+									</ButtonBasic>
+								</td>
+							</tr>
+							<tr>
+								<th>Name</th>
+								<td class="box-x">
+									<InputText
+										v-model="form.name"
+										placeholder="숫자, 영문, -, _"
+										pattern="^[0-9a-zA-Z-_]+$"
+										:disabled="!status.isUpload"
+									/>
+								</td>
+							</tr>
+							<tr>
+								<th>Code Preview</th>
+								<td class="box-x">
+									<code
+										class="codeview"
+										v-html="formComputed.codeSyntax"
+										@click="onClickCopyIconHTML"
+									></code>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<div class="_actions box-x">
+					<ButtonBasic @click="onClickUpdateIcon">
+						{{ status.isUpload ? "업로드" : "수정하기" }}
+					</ButtonBasic>
+					<template v-if="!status.isUpload">
+						<ButtonBasic :to="form.url" disabled> 다운로드(미구현) </ButtonBasic>
+						<ButtonBasic hover="red" @click="onClickDeleteIcon"> 삭제하기 </ButtonBasic>
+					</template>
 				</div>
 			</div>
 		</div>
@@ -245,9 +325,20 @@
 </template>
 
 <script setup>
-import { useModalStore, useToastStore } from "@store";
+import { useModalStore, useToastStore, useNavStore } from "@store";
+
+// navStore.unuse("gnb");
 const URL_JARVIS = "https://jarvis.dn.nexoncdn.co.kr/temp";
 const URL_AZURE = "https://jarviskcst.blob.core.windows.net/temp";
+
+const TESTMODEL = reactive({
+	selector1Index: -1,
+	selector1Value: "",
+	selector2Index: -1,
+	selector2Value: -1,
+	value3: "test",
+	valid3: false,
+});
 
 const prefixData = {
 	"": "공통",
@@ -278,7 +369,7 @@ const formDefault = {
 	prefix: "",
 	pos: [50, 50],
 	url: "",
-	color: "#000",
+	color: "#000000",
 	ext: null,
 };
 
@@ -333,11 +424,25 @@ const select = reactive({
 });
 
 const form = ref({ ...formDefault });
+watchEffect(() => {
+	const prefix = form.value.prefix ? `${form.value.prefix}-` : "";
+	form.value.key = `${prefix}${form.value.name}`;
+	console.log();
+});
+
+// [TODO] reactice.computed 제거
 const formComputed = reactive({
 	code: computed(() => {
 		const prefix = form.value.prefix ? `${form.value.prefix}-` : "";
 		const key = `${prefix}${form.value.name}`;
 		return `<i class="i--${key}${status.isBoxMode ? " -box" : ""}"></i>`;
+	}),
+	codeSyntax: computed(() => {
+		const prefix = form.value.prefix ? `${form.value.prefix}-` : "";
+		const key = `${prefix}${form.value.name}`;
+		return `&lt;<span class="syntax-1">i</span>&nbsp;<span class='syntax-2'>class</span>="<span class="syntax-3">i--${key}${
+			status.isBoxMode ? " -box" : ""
+		}</span>"&gt;&lt;/<span class="syntax-1">i</span> &gt;`;
 	}),
 });
 
@@ -348,15 +453,11 @@ const formStyle = computed(() => {
 
 	if (url) {
 		const fillProp = fillPropsMap[form.value.fill];
-		// console.log(fillProp);
 		result[`${fillProp}-image`] = `url(${url})`;
-		// result[`mask-image`] = `url(${url})`;
 		if (isSolid) {
 			result.color = form.value.color;
 		}
 	}
-
-	// result.
 
 	const posX = form.value.pos[0] - 50;
 	const posY = form.value.pos[1] - 50;
@@ -535,6 +636,24 @@ const onClickDeleteIcon = () => {
 	tryDeleteIcon();
 };
 
+const onClickCopyIconHTML = async () => {
+	await useCopy(formComputed.code);
+	toastStore.open({ message: `"${form.value.key}" 아이콘 코드를 복사했습니다.` });
+};
+
+const onBlurInputPercent = (number = 50, options) => {
+	const model = options.model;
+	const isFallback = Number.isNaN(+model.value) || model.value === "";
+
+	console.log(model.value);
+	if (!isFallback) {
+		return;
+	}
+
+	console.log("fallback");
+	model.value = number;
+};
+
 const callScript = () => {
 	const installedScript = document.body.querySelector("script[data-callscript]");
 
@@ -565,11 +684,17 @@ const getData = async () => {
 
 const tryDeleteIcon = () => {
 	//[TODO] validate
-	if (!confirm("진짜 삭제 하시겠습니까??")) {
-		return;
-	}
-	requestDeleteIcon();
+
+	const confirm = modalStore.open({
+		type: "confirm",
+		message: `"${form.value.key}" 아이콘을 삭제 하시겠습니까?`,
+	});
+
+	confirm.on("confirm", () => {
+		requestDeleteIcon();
+	});
 };
+
 const requestDeleteIcon = async () => {
 	const prefix = select.target.prefix ? `${select.target.prefix}-` : "";
 	const name = `${prefix}${select.target.name}`;
@@ -578,13 +703,13 @@ const requestDeleteIcon = async () => {
 		alert("삭제 실패");
 		return;
 	}
+	toastStore.open(`"${form.value.key}" 아이콘이 삭제 되었습니다.`);
 	getData();
 	closeForm();
 };
 
 const tryUpdateIcon = () => {
-	//[TODO] validate
-	if (!confirm("수정/업로드 확인")) {
+	if (!confirm("[TODO] validate | 수정/업로드 확인")) {
 		return;
 	}
 	requestUpdateIcon();
@@ -597,8 +722,10 @@ const requestUpdateIcon = async () => {
 		return;
 	}
 
+	toastStore.open(`"${form.value.key}" 아이콘이 업데이트 되었습니다.`);
+
 	getData();
-	closeForm();
+	// closeForm();
 };
 
 const tryPurgeIcon = () => {

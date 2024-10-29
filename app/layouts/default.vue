@@ -4,6 +4,6 @@
 <script setup>
 import { useNavStore } from "@store";
 const navStore = useNavStore();
-navStore.useNexonGnb();
-navStore.useGnb();
+navStore.use("nexon-gnb");
+navStore.use("gnb");
 </script>

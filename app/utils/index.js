@@ -171,3 +171,47 @@ export const dateFormatter = (timestamp) => {
 		full: `${formatDate} ${formatTime}`,
 	};
 };
+
+export const deepCopy = (obj) => {
+	// 객체가 null이거나 객체가 아닌 경우(기본 자료형) 그대로 반환
+	if (obj === null || typeof obj !== "object") {
+		return obj;
+	}
+
+	// 배열일 경우 배열을 깊은 복사
+	if (Array.isArray(obj)) {
+		return obj.map((item) => deepCopy(item));
+	}
+
+	// 일반 객체일 경우
+	const result = {};
+	for (const key in obj) {
+		if (obj.hasOwnProperty(key)) {
+			result[key] = deepCopy(obj[key]);
+		}
+	}
+
+	return result;
+};
+
+export const checkPath = (path = "", list = []) => {
+	// Remove query parameters and hash from the path manually
+	let pathWithoutQuery = path.split("?")[0];
+	let pathWithoutHash = pathWithoutQuery.split("#")[0];
+
+	for (const pattern of list) {
+		if (pattern.endsWith("/*")) {
+			const prefix = pattern.slice(0, -2); // Use -2 to correctly handle paths ending with /*
+			if (pathWithoutHash.startsWith(prefix) && pathWithoutHash.length > prefix.length) {
+				return true;
+			}
+		} else if (pattern === pathWithoutHash) {
+			return true;
+		}
+	}
+	return false;
+};
+
+export const isObjectOrArray = (value) => {
+	return typeof value === "object" && value !== null && (Array.isArray(value) || !Array.isArray(value));
+};

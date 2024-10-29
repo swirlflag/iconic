@@ -1,5 +1,5 @@
 <template>
-	<nav id="gnb" :class="{ '-viewless': !isUseGnb, '-open': isOpen }" ref="$root">
+	<nav id="gnb" :class="{ '-viewless': !isUse, '-open': isOpen }" ref="$root">
 		<div class="gnb-panel" ref="$panel">
 			<div class="gnb-static" ref="$static">
 				<NuxtLink class="gnb-logo" to="/main">
@@ -40,12 +40,16 @@ const $extend = ref(null);
 
 const navStore = useNavStore();
 
-const isUseGnb = computed(() => {
-	return navStore.gnb.use;
+const status = computed(() => {
+	return navStore.status["gnb"];
+});
+
+const isUse = computed(() => {
+	return status.value.use;
 });
 
 const isOpen = computed(() => {
-	return navStore.gnb.open;
+	return status.value.open;
 });
 
 watch(isOpen, (now) => {
@@ -59,7 +63,7 @@ watch(isOpen, (now) => {
 watch(
 	() => route.fullPath,
 	() => {
-		navStore.closeGnb();
+		navStore.patch("gnb", { open: false });
 	},
 );
 
@@ -88,11 +92,7 @@ const closeMotion = () => {
 };
 
 const toggleGnb = () => {
-	if (isOpen.value) {
-		navStore.closeGnb();
-	} else {
-		navStore.openGnb();
-	}
+	navStore.patch("gnb", { open: !isOpen.value });
 };
 
 const onClickToggleMenu = () => {
@@ -167,6 +167,7 @@ $gnbSize: 40px;
 			height: $gnbSize * 0.85;
 			align-items: center;
 			// @include hidetext;
+			white-space: nowrap;
 			i.i--logo-nnp {
 				background-color: #000;
 				width: 100%;

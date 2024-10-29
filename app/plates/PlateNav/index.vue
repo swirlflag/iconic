@@ -1,9 +1,9 @@
 <template>
 	<div id="plate--nav" ref="$root">
 		<div class="nav__top" ref="$top">
-			<NexonGnb ref="$nexonGnb" />
+			<NexonGnb data-navtop="nexon-gnb" />
 
-			<Gnb ref="$gnb" />
+			<Gnb data-navtop="gnb" />
 		</div>
 
 		<ClientOnly>
@@ -42,47 +42,29 @@ const onClickGotopButton = () => {
 };
 
 const _watchMounted = () => {
-	const ob = useResizeObserver($gnb.value.$el, () => {
-		const height = Math.ceil($gnb.value.$el.offsetHeight);
-		navStore.$patch((state) => {
-			state.gnb.height = height;
-			setRootStyleValue("gnb-height", height + "px");
-			setRootStyleValue("gnb-gap", navStore.gnb.gap ? navStore.gnb.height + "px" : 0);
-		});
-	});
-	useResizeObserver($nexonGnb.value.$el, () => {
-		const height = Math.ceil($nexonGnb.value.$el.offsetHeight);
-		navStore.$patch((state) => {
-			state.nexonGnb.height = height;
-			setRootStyleValue("nexon-gnb-height", height + "px");
-			setRootStyleValue("nexon-gnb-gap", navStore.nexonGnb.gap ? navStore.nexonGnb.height + "px" : 0);
+	const navtops = $root.value.querySelectorAll("[data-navtop]");
+
+	[...navtops].forEach((item) => {
+		useResizeObserver(item, () => {
+			const key = item.dataset.navtop;
+			const target = navStore.status[key];
+			const height = Math.ceil(item.offsetHeight);
+
+			navStore.patch(key, { height });
+			setRootStyleValue(`${key}-height`, height + "px");
+			setRootStyleValue(`${key}-gap`, target.gap ? height + "px" : 0);
 		});
 	});
 
 	watchEffect(() => {
 		const WH = detector.screen.height;
 
-		let navtopGap = 0;
-		if (navStore.nexonGnb.gap) {
-			navtopGap += navStore.nexonGnb.height;
-		}
-		if (navStore.gnb.gap) {
-			navtopGap += navStore.gnb.height;
-		}
-
-		let navtopHeight = 0;
-		if (navStore.nexonGnb.use) {
-			navtopHeight += navStore.nexonGnb.height;
-		}
-		if (navStore.gnb.use) {
-			navtopHeight += navStore.gnb.height;
-		}
-
+		const navtopGap = navStore.top.gap;
+		const navtopHeight = navStore.top.height;
 		const pageHeight = WH - navtopGap;
 
 		setRootStyleValue("navtop-height", navtopHeight + "px");
 		setRootStyleValue("navtop-gap", navtopGap + "px");
-
 		setRootStyleValue("page-height", pageHeight + "px");
 
 		globalStore.$patch((state) => {

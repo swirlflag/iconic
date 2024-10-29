@@ -158,7 +158,7 @@ const closeToast = (uid) => {
 			box-sizing: border-box;
 			display: flex;
 			align-items: center;
-			padding: $SIZE_inPadding $SIZE_inPadding;
+			padding: $SIZE_inPadding;
 			min-width: 300px;
 			max-width: 800px;
 			width: 100%;
@@ -230,7 +230,6 @@ const closeToast = (uid) => {
 				i.i--x2 {
 					width: 14px;
 					height: 14px;
-					background-color: #000;
 					@include mobile {
 						width: 12px;
 						height: 12px;

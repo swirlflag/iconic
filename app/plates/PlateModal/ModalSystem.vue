@@ -20,19 +20,19 @@
 			</div>
 
 			<div class="modal__controls" v-if="isShowControls">
-				<button
+				<ButtonBasic
 					class="modal__cancel"
 					v-if="item.buttonCancel"
 					v-dompurify-html="item.buttonCancel"
 					@click="onClickCancel"
-				></button>
-				<button
+				/>
+				<ButtonBasic
 					class="modal__confirm"
 					v-if="item.buttonConfirm"
 					v-dompurify-html="item.buttonConfirm"
 					@click="onClickConfirm"
 					:style="{ 'background-color': item.systemColor || null }"
-				></button>
+				/>
 			</div>
 
 			<div class="modal__slot__teleport" ref="$slot"></div>
@@ -99,6 +99,7 @@ onMounted(() => {
 $closeSize: 22px;
 $closeSize_m: 18px;
 $closeGap: 10px;
+
 .modal__box {
 	background-color: #fff;
 	padding: $SIZE_inPadding;
@@ -172,7 +173,6 @@ $closeGap: 10px;
 				width: 100%;
 				height: 100%;
 				display: inline-block;
-				background-color: #000;
 			}
 		}
 	}
@@ -186,9 +186,9 @@ $closeGap: 10px;
 		}
 	}
 	.modal__message {
-		margin-top: 10px;
+		margin-top: $SIZE_inPadding;
 		@include mobile {
-			margin-top: 5px;
+			margin-top: $SIZE_MO_inPadding;
 		}
 	}
 
@@ -197,7 +197,7 @@ $closeGap: 10px;
 		justify-content: center;
 		align-items: center;
 		padding: 20px;
-		margin-top: 10px;
+		margin-top: $SIZE_inPadding;
 	}
 
 	.modal__controls {

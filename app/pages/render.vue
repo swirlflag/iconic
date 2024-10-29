@@ -2,6 +2,8 @@
 	<div class="test">
 		<div>
 			<i class="i--l-apple"> </i>
+			<i class="i--wp-class-5 -box"> </i>
+			<i class="i--b-googleplay"></i>
 		</div>
 		<NuxtLink to="https://jarviskcst.blob.core.windows.net/temp/script.js" target="_blank"> azure script </NuxtLink>
 		<br />

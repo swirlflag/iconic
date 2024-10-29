@@ -21,23 +21,27 @@ const detector = useDetector();
 
 const $root = ref(null);
 
+const status = computed(() => {
+	return navStore.status["nexon-gnb"];
+});
+
 const isInstall = computed(() => AS.nexonGnb.isSuccess);
 
 const isUse = computed(() => {
-	return navStore.nexonGnb.use;
+	return status.value.use;
 });
 const isFix = computed(() => {
-	return navStore.nexonGnb.fix;
+	return status.value.fix;
 });
 const isHide = computed(() => {
-	return isFix && navStore.nexonGnb.hide;
+	return isFix && status.value.hide;
 });
 
 const _watchMounted = () => {
 	watch(
-		[() => detector.scroll.y, () => navStore.nexonGnb.height, () => navStore.nexonGnb.fix],
+		[() => detector.scroll.y, () => status.value.height, () => status.value.fix],
 		() => {
-			const isFix = navStore.nexonGnb.fix;
+			const isFix = status.value.fix;
 			if (isFix) {
 				return;
 			}
@@ -49,13 +53,13 @@ const _watchMounted = () => {
 	);
 
 	watch(
-		() => navStore.nexonGnb.hide,
+		() => status.value.hide,
 		(now) => {
-			if (!navStore.nexonGnb.fix) {
+			if (!status.value.fix) {
 				return;
 			}
 			gsap.to($root.value, {
-				marginTop: now ? -navStore.nexonGnb.height : 0,
+				marginTop: now ? -status.value.height : 0,
 				ease: "power3.out",
 				duration: 0.4,
 				autoRound: false,
